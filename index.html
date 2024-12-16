@@ -19,6 +19,18 @@
             </form>
             <p id="responseMessage" class="hidden">Your message has been sent anonymously!</p>
         </div>
+        <div class="admin-access">
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <input type="password" id="adminPassword" placeholder="Enter password" required>
+                <button type="submit">Login</button>
+            </form>
+            <div id="messageStorage" class="hidden">
+                <h2>Stored Messages</h2>
+                <ul id="storedMessages"></ul>
+                <button id="logoutButton">Logout</button>
+            </div>
+        </div>
     </main>
     <footer>
         <p>&copy; 2024 Anonymous Messaging</p>
