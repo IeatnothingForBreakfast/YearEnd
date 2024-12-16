@@ -41,29 +41,35 @@
     document.getElementById('adminLoginForm').addEventListener('submit', async function(event) {
         event.preventDefault();
         const adminPassword = document.getElementById('adminPassword').value;
+        const correctPassword = 'EatShit'; // Hardcoded password for admin
 
-        try {
-            const response = await fetch('http://localhost:3000/admin-login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ password: adminPassword })
-            });
+        // Check if the entered password matches the hardcoded one
+        if (adminPassword === correctPassword) {
+            try {
+                const response = await fetch('http://localhost:3000/admin-login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: adminPassword })
+                });
 
-            if (response.ok) {
-                const data = await response.json();
-                const messageStorage = document.getElementById('messageStorage');
-                const storedMessages = document.getElementById('storedMessages');
-                storedMessages.innerHTML = data.messages.map(msg => `<li>${msg}</li>`).join('');
-                messageStorage.classList.remove('hidden');
-                document.getElementById('adminLoginForm').classList.add('hidden');
-            } else {
-                alert('Invalid password.');
+                if (response.ok) {
+                    const data = await response.json();
+                    const messageStorage = document.getElementById('messageStorage');
+                    const storedMessages = document.getElementById('storedMessages');
+                    storedMessages.innerHTML = data.messages.map(msg => `<li>${msg}</li>`).join('');
+                    messageStorage.classList.remove('hidden');
+                    document.getElementById('adminLoginForm').classList.add('hidden');
+                } else {
+                    alert('Invalid password.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while logging in. Please try again.');
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred while logging in. Please try again.');
+        } else {
+            alert('Incorrect password.');
         }
     });
 
